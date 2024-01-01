@@ -24,9 +24,16 @@ const getData = async (token: string) => {
     });
     const data = await res.json();
     return data;
-  } catch (e) {
+  } catch {
     return null;
   }
+}
+
+const setData = async (data: Record<string, any>) => {
+  const storeData = {} as Record<string, any>;
+  storeData.data = data;
+  storeData.timestamp = Date.now();
+  await kv.set(["preferences", "data"], storeData);
 }
 
 app.get("/token/yup", async (c) => {
@@ -39,17 +46,14 @@ app.get("/token/yup", async (c) => {
     return c.json({ error: "token not found" });
   }
 
-  const reqData = await kv.get(["preferences", "data"]) as Record<string, any>;
+  const reqData = (await kv.get(["preferences", "data"])).value as Record<string, any>;
 
   if (!reqData) {
     const data = await getData(token);
     if (!data) {
       return c.json({ error: "data not found" });
     }
-    const storeData = {} as Record<string, any>;
-    storeData.data = data;
-    storeData.timestamp = Date.now();
-    await kv.set(["preferences", "data"], storeData);
+    await setData(data);
     return c.json(data);
   }
 
@@ -62,10 +66,7 @@ app.get("/token/yup", async (c) => {
     if (!data) {
       return c.json(reqData.data);
     }
-    const storeData = {} as Record<string, any>;
-    storeData.data = data;
-    storeData.timestamp = Date.now();
-    await kv.set(["preferences", "data"], storeData);
+    await setData(data);
     return c.json(data);
   }
   return c.json(reqData.data);

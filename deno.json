@@ -6,5 +6,10 @@
     },
     "tasks": {
         "deploy": "deployctl deploy --prod --project=yup-token-cache-hono --entrypoint=main.ts"
-      }
+      },
+    "lint": {
+        "rules": {
+            "exclude": ["no-explicit-any", "require-await"]
+        }
+    }
 }
