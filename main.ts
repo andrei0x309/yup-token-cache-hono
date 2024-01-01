@@ -1,6 +1,10 @@
-import { Hono } from "https://deno.land/x/hono@v3.11.12/mod.ts";
+import { Hono } from "https://deno.land/x/hono@v3.11.12/mod.ts"
+import { cors } from "https://deno.land/x/hono@v3.11.12/middleware.ts"
 
 const app = new Hono();
+
+app.use(cors());
+
 const kv = await Deno.openKv();
 
 const getData = async (token: string) => {

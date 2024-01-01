@@ -1,0 +1,8 @@
+{
+  "version": "3",
+  "redirects": {
+    "https://deno.land/x/hono/middleware.ts": "https://deno.land/x/hono@v3.11.12/middleware.ts",
+    "https://deno.land/x/hono/mod.ts": "https://deno.land/x/hono@v3.11.12/mod.ts"
+  },
+  "remote": {}
+}
