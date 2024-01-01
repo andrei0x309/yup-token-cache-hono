@@ -1,4 +1,9 @@
-{
+{   
+    "compilerOptions": {
+        "allowJs": true,
+        "lib": ["deno.window", "deno.fetch", "deno.ns", "deno.unstable"],
+        "strict": true
+    },
     "tasks": {
         "deploy": "deployctl deploy --prod --project=yup-token-cache-hono --entrypoint=main.ts"
       }

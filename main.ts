@@ -1,4 +1,4 @@
-import { Hono } from "https://deno.land/x/hono@v3.4.1/mod.ts";
+import { Hono } from "https://deno.land/x/hono@v3.11.12/mod.ts";
 
 const app = new Hono();
 const kv = await Deno.openKv();
@@ -29,7 +29,7 @@ app.get("/token/yup", async (c) => {
     return c.json({ error: "token not found" });
   }
 
-  const reqData = await kv.get(["preferences", "data"]);
+  const reqData = await kv.get(["preferences", "data"]) as Record<string, any>;
 
   if (!reqData) {
     const data = await getData(token);
@@ -43,7 +43,7 @@ app.get("/token/yup", async (c) => {
     return c.json(data);
   }
 
-  const { timestamp } = reqData;
+  const { timestamp } = reqData
   const now = Date.now();
   const diff = now - timestamp;
   const minutes = Math.floor(diff / 1000 / 60);
