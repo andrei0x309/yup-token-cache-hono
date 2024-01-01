@@ -60,3 +60,9 @@ app.get("/token/yup", async (c) => {
   }
   return c.json(reqData.data);
 });
+
+app.get("/", async (c) => {
+  c.text("...");
+});
+
+Deno.serve(app.fetch);
