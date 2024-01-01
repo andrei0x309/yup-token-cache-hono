@@ -1,0 +1,5 @@
+{
+    "tasks": {
+        "deploy": "deployctl deploy --prod --project=yup-token-cache-hono --entrypoint=main.ts"
+      }
+}

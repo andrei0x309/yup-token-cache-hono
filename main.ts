@@ -5,18 +5,18 @@ const kv = await Deno.openKv();
 
 const getData = async (token: string) => {
   try {
-  const API_URL = Deno.env.get("API_URL");
- 
-  const res = await fetch(`${API_URL}`, {
-    headers: {
-      authorization: token,
-    },
-  });
-  const data = await res.json();
-  return data;
-} catch (e) {
-  return null;
-}
+    const API_URL = Deno.env.get("API_URL");
+
+    const res = await fetch(`${API_URL}`, {
+      headers: {
+        authorization: token,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    return null;
+  }
 }
 
 app.get("/token/yup", async (c) => {
@@ -42,7 +42,7 @@ app.get("/token/yup", async (c) => {
     await kv.set(["preferences", "data"], storeData);
     return c.json(data);
   }
-  
+
   const { timestamp } = reqData;
   const now = Date.now();
   const diff = now - timestamp;
