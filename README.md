@@ -1,11 +1,3 @@
-# Hono Deno REST API Template
+# Hono Deno KV Cache layer
 
-A template of REST API app using [Hono](https://hono.dev/) framework
-
-```
-deno run --allow-net main.ts
-```
-
-This starts the server at http://localhost:8000/
-
-Try go to http://localhost:8000/api/Brachiosaurus or http://localhost:8000/api/
+This is a simple key-value cache layer using KV, Deno and Hono.
