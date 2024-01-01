@@ -3,7 +3,13 @@ import { cors } from "https://deno.land/x/hono@v3.11.12/middleware.ts"
 
 const app = new Hono();
 
-app.use(cors());
+app.use('/*', cors({
+  origin: (origin: string) => (origin.toLocaleLowerCase().includes('://localhost') || origin.toLocaleLowerCase().includes('://yup') ) ? origin : '',
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  maxAge: 3600,
+}))
 
 const kv = await Deno.openKv();
 
