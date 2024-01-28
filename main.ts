@@ -48,6 +48,8 @@ app.get("/token/yup", async (c) => {
 
   const reqData = (await kv.get(["preferences", "data"])).value as Record<string, any>;
 
+  console.log(reqData);
+
   if (!reqData) {
     const data = await getData(token);
     if (!data) {
