@@ -23,6 +23,9 @@ const getData = async (token: string) => {
       },
     });
     const data = await res.json();
+    if (data?.status?.error_code === 429) {
+      return null;
+    }
     return data;
   } catch {
     return null;
@@ -46,9 +49,11 @@ app.get("/token/yup", async (c) => {
     return c.json({ error: "token not found" });
   }
 
-  const reqData = (await kv.get(["preferences", "data"])).value as Record<string, any>;
+  let reqData = (await kv.get(["preferences", "data"])).value as Record<string, any> | null;
 
-  console.log(reqData);
+  if(reqData?.data?.status?.error_code === 429) {
+    reqData = null;
+  }
 
   if (!reqData) {
     const data = await getData(token);
@@ -63,7 +68,7 @@ app.get("/token/yup", async (c) => {
   const now = Date.now();
   const diff = now - timestamp;
   const minutes = Math.floor(diff / 1000 / 60);
-  if (minutes > 110) {
+  if (minutes > 180) {
     const data = await getData(token);
     if (!data) {
       return c.json(reqData.data);
