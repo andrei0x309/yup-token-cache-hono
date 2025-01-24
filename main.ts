@@ -4,7 +4,10 @@ import { cors } from "https://deno.land/x/hono@v3.11.12/middleware.ts"
 const app = new Hono();
 
 app.use('/*', cors({
-  origin: (origin: string) => (origin.toLocaleLowerCase().includes('://localhost') || origin.toLocaleLowerCase().includes('://yup') ) ? origin : '',
+  origin: (origin: string) => (origin.toLocaleLowerCase().includes('://localhost') || 
+  origin.toLocaleLowerCase().includes('://yup') ) ||
+  origin.toLocaleLowerCase().includes('://live.yup.io')
+  ? origin : '',
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
